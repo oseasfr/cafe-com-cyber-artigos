@@ -3,13 +3,17 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-export default defineConfig(({ mode }) => {
+// https://vitejs.dev/config/
+export default defineConfig(({ mode } ) => {
+  // Carrega as variáveis de ambiente
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    // AJUSTE: O caminho base deve ser o nome do seu repositório
+    // --- CORREÇÃO PARA GITHUB PAGES ---
+    // Define o caminho base como o nome do repositório para o build funcionar corretamente
     base: "/cafe-com-cyber-artigos/", 
-
+    
+    // --- OTIMIZAÇÃO DE PRODUÇÃO ---
     build: {
       rollupOptions: {
         output: {
@@ -22,6 +26,7 @@ export default defineConfig(({ mode }) => {
       }
     },
 
+    // --- CONFIGURAÇÕES ORIGINAIS MANTIDAS ---
     server: {
       host: "::",
       port: 8080,

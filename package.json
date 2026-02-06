@@ -24,6 +24,9 @@
     "sonner": "^1.7.4",
     "tailwind-merge": "^2.6.0",
     "tailwindcss-animate": "^1.0.7"
+    "dependencies": {
+    "@tanstack/react-query": "^5.0.0",
+    "lucide-react": "^0.462.0",}
   },
   "devDependencies": {
     "@eslint/js": "^9.32.0",
@@ -44,3 +47,4 @@
     "vite": "^5.4.19"
   }
 }
+

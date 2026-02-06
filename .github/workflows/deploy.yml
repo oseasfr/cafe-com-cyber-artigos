@@ -20,10 +20,8 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-
-      - name: Install dependencies
-        # O segredo está aqui: força a instalação ignorando conflitos de peerDependencies
-        run: npm install --legacy-peer-deps
+- name: Install dependencies
+        run: npm install --legacy-peer-deps --prefer-offline --no-audit
 
       - name: Build
         run: npm run build

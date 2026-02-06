@@ -86,9 +86,6 @@ const ScrollToTop = () => {
 const queryClient = new QueryClient();
 
 const App = () => {
-  // CONFIGURAÇÃO DE BASE PARA GITHUB PAGES
-  const baseName = "/cafe-com-cyber-artigos";
-
   // Se o modo de manutenção estiver ativado, renderiza apenas a página de manutenção
   if (MAINTENANCE_MODE) {
     return (
@@ -96,7 +93,8 @@ const App = () => {
         <TooltipProvider>
           <Toaster />
           <Sonner />
-          <BrowserRouter basename={baseName}>
+          {/* RESOLVIDO: Adicionado basename para subpasta do GitHub */}
+          <BrowserRouter basename="/cafe-com-cyber-artigos">
             <Routes>
               <Route path="*" element={<UnderConstruction />} />
             </Routes>
@@ -112,7 +110,8 @@ const App = () => {
       <TooltipProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter basename={baseName}>
+        {/* RESOLVIDO: Adicionado basename para subpasta do GitHub */}
+        <BrowserRouter basename="/cafe-com-cyber-artigos">
           <ScrollToTop /> {/* Adicionado para forçar a rolagem para o topo */}
           <ScrollToTopButton /> {/* Botão flutuante para voltar ao topo */}
           <Routes>

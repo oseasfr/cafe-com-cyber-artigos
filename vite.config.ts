@@ -3,19 +3,17 @@ import react from "@vitejs/plugin-react-swc";
 import path from "path";
 import { componentTagger } from "lovable-tagger";
 
-// https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
   const env = loadEnv(mode, process.cwd(), '');
 
   return {
-    // --- CORREÇÃO PARA GITHUB PAGES ---
-    // No GitHub Pages, o caminho DEVE ser o nome do repositório entre barras.
+    // AJUSTE: O caminho base deve ser o nome do seu repositório
     base: "/cafe-com-cyber-artigos/", 
-    
+
     build: {
       rollupOptions: {
         output: {
-          manualChunks(id) { // Removi o tipo ": string" caso seu arquivo seja .js
+          manualChunks(id) {
             if (id.includes('node_modules')) {
               return 'vendor';
             }

@@ -11,13 +11,7 @@ import { ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import NotFound from "../NotFound";
 
-function ArticleThemeToggle({
-  theme,
-  onToggle,
-}: {
-  theme: "light" | "dark";
-  onToggle: () => void;
-}) {
+function ArticleThemeToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggle: () => void; }) {
   return (
     <button
       onClick={onToggle}
@@ -33,10 +27,7 @@ function ArticleThemeToggle({
 function useArticleTheme() {
   const [theme, setTheme] = useState<"light" | "dark">(() => {
     if (typeof window !== "undefined") {
-      const saved = localStorage.getItem("article-theme") as
-        | "light"
-        | "dark"
-        | null;
+      const saved = localStorage.getItem("article-theme") as "light" | "dark" | null;
       return saved || "dark";
     }
     return "dark";
@@ -54,62 +45,22 @@ function useArticleTheme() {
 }
 
 export default function ArticlePage() {
-  const { articleId } = useParams();
-  const article = articles.find((a) => a.id === articleId);
+  // AJUSTE AQUI: Mudado de articleId para id para bater com a rota do App.tsx
+  const { id } = useParams();
+  const article = articles.find((a) => a.id === id);
+
+  useEffect(() => {
+    if (article) {
+      document.title = `${article.title} | Artigos`;
+    }
+    return () => {
+      document.title = "Artigos | Café com Cyber";
+    };
+  }, [article]);
 
   if (!article) return <NotFound />;
 
   const articleUrl = `/articles/${article.id}`;
-  const fullUrl =
-    typeof window !== "undefined"
-      ? window.location.origin + articleUrl
-      : articleUrl;
-
-  const getImageUrl = () => {
-    if (!article.imageUrl) return "";
-    if (article.imageUrl.startsWith("http")) return article.imageUrl;
-    const path = article.imageUrl.startsWith("/")
-      ? article.imageUrl
-      : "/" + article.imageUrl;
-    return typeof window !== "undefined" ? window.location.origin + path : path;
-  };
-
-  const imageUrl = getImageUrl();
-  const shareImageUrl =
-    typeof window !== "undefined"
-      ? window.location.origin + "/favicon.ico"
-      : "/favicon.ico";
-
-  useEffect(() => {
-    document.title = `${article.title} | Artigos`;
-
-    const updateMetaTag = (
-      property: string,
-      content: string,
-      isProperty = true
-    ) => {
-      const attribute = isProperty ? "property" : "name";
-      let meta = document.querySelector(`meta[${attribute}="${property}"]`);
-      if (!meta) {
-        meta = document.createElement("meta");
-        meta.setAttribute(attribute, property);
-        document.head.appendChild(meta);
-      }
-      meta.setAttribute("content", content);
-    };
-
-    updateMetaTag("og:title", article.title);
-    updateMetaTag("og:description", article.description);
-    updateMetaTag("og:type", "article");
-    updateMetaTag("og:url", fullUrl);
-    updateMetaTag("og:image", shareImageUrl);
-    updateMetaTag("description", article.description, false);
-
-    return () => {
-      document.title = "Artigos | Café com Cyber";
-    };
-  }, [article, fullUrl, shareImageUrl]);
-
   const articleTheme = useArticleTheme();
   const isLight = articleTheme.theme === "light";
 
@@ -119,12 +70,7 @@ export default function ArticlePage() {
 
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-6">
-          <Button
-            asChild
-            variant="ghost"
-            size="sm"
-            className="text-muted-foreground hover:text-foreground"
-          >
+          <Button asChild variant="ghost" size="sm" className="text-muted-foreground hover:text-foreground">
             <Link to="/articles">
               <ArrowLeft className="mr-2 h-4 w-4" />
               Voltar para Artigos
@@ -139,10 +85,7 @@ export default function ArticlePage() {
         {article.tags && article.tags.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-6">
             {article.tags.map((tag) => (
-              <span
-                key={tag}
-                className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded-md"
-              >
+              <span key={tag} className="text-xs px-2 py-1 bg-muted text-muted-foreground rounded-md">
                 #{tag}
               </span>
             ))}
@@ -175,20 +118,17 @@ export default function ArticlePage() {
         {article.imageUrl && (
           <div className="mb-8 rounded-lg overflow-hidden">
             <img
-              src={imageUrl}
+              src={article.imageUrl}
               alt={article.title}
-              className="w-full h-auto max-h-64 object-contain bg-muted/20"
+              className="w-full h-auto max-h-96 object-cover bg-muted/20 rounded-lg"
             />
           </div>
         )}
 
         <article
           className={`prose prose-lg max-w-none ${
-            isLight
-              ? "prose-slate prose-invert"
-              : "prose-invert prose-slate"
+            isLight ? "prose-slate" : "prose-invert prose-slate"
           }`}
-          data-article-content
         >
           <ReactMarkdown
             components={{
@@ -203,49 +143,15 @@ export default function ArticlePage() {
                 </a>
               ),
               pre: ({ children }) => (
-                <pre
-                  className={`p-4 rounded-lg overflow-x-auto my-4 ${
-                    isLight ? "bg-gray-100 text-gray-800" : "bg-muted text-foreground"
-                  }`}
-                >
+                <pre className={`p-4 rounded-lg overflow-x-auto my-4 ${isLight ? "bg-gray-100 text-gray-800" : "bg-muted text-foreground"}`}>
                   {children}
                 </pre>
               ),
-              code: ({ className, children }) => {
-                const isInline = !className;
-                if (isInline) {
-                  return (
-                    <code
-                      className={`${
-                        isLight
-                          ? "bg-gray-100 text-gray-800"
-                          : "bg-muted text-foreground"
-                      } px-1.5 py-0.5 rounded text-sm`}
-                    >
-                      {children}
-                    </code>
-                  );
-                }
-                return <code>{children}</code>;
-              },
             }}
           >
             {article.content}
           </ReactMarkdown>
         </article>
-
-        <div className="mt-8">
-          <ShareButtons
-            title={article.title}
-            url={articleUrl}
-            themeToggle={
-              <ArticleThemeToggle
-                theme={articleTheme.theme}
-                onToggle={articleTheme.toggleTheme}
-              />
-            }
-          />
-        </div>
 
         <AuthorBioFooter
           author={article.author}

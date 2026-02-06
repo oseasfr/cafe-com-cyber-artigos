@@ -1,7 +1,7 @@
 name: Deploy do Café com Cyber
 on:
   push:
-    branches: ["Principal"] # Nome da sua branch
+    branches: ["Principal"] 
   workflow_dispatch:
 
 permissions:
@@ -20,11 +20,10 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          # AJUSTE: Removido o cache:'npm' para evitar erro de falta do package-lock.json
 
       - name: Install dependencies
-        # O comando npm install funcionará mesmo sem o lock file, baixando as versões do package.json
-        run: npm install
+        # O segredo está aqui: força a instalação ignorando conflitos de peerDependencies
+        run: npm install --legacy-peer-deps
 
       - name: Build
         run: npm run build

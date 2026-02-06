@@ -1,4 +1,4 @@
-// Este script varre a pasta de artigos e carrega tudo automaticamente
+// Importa todos os arquivos .md da pasta de artigos
 const modules = import.meta.glob("../content/articles/*.md", { eager: true });
 
 export interface Article {
@@ -17,15 +17,40 @@ export interface Article {
   category: string;
   imageUrl?: string;
   tags?: string[];
+  featured?: boolean;
 }
 
 export const articles: Article[] = Object.entries(modules).map(([path, module]: any) => {
-  const { metadata } = module;
-  // O conteúdo do markdown geralmente vem no corpo do módulo ou via componente
-  // Para simplificar, assumimos que seu loader extrai o texto
+  // Extrai os metadados (frontmatter) e o conteúdo HTML gerado pelo plugin
+  const { attributes, html } = module;
+  
+  // "Blindagem": Se o ID não existir no arquivo, usa o nome do arquivo .md
+  const fileNameId = path.split("/").pop()?.replace(".md", "") || "artigo-sem-id";
+
   return {
-    ...metadata,
-    id: metadata.id || path.split("/").pop()?.replace(".md", ""),
-    content: module.default, // O conteúdo do Markdown
+    // Valores padrão (fallback) caso você esqueça de preencher algo no .md
+    id: attributes?.id || fileNameId,
+    title: attributes?.title || "Artigo sem título",
+    description: attributes?.description || "Sem descrição disponível.",
+    author: attributes?.author || "Equipe Café com Cyber",
+    publishedAt: attributes?.publishedAt || new Date().toISOString(),
+    readTime: attributes?.readTime || "5 min",
+    category: attributes?.category || "Geral",
+    content: html || "", // Conteúdo transformado em HTML pelo plugin
+    
+    // Repassa os outros campos opcionais
+    imageUrl: attributes?.imageUrl,
+    authorFirstName: attributes?.authorFirstName,
+    authorLastName: attributes?.authorLastName,
+    authorAvatar: attributes?.authorAvatar,
+    authorBio: attributes?.authorBio,
+    authorSocialLink: attributes?.authorSocialLink,
+    tags: attributes?.tags || [],
+    featured: attributes?.featured || false,
   };
 });
+
+// Ordena automaticamente por data (os mais recentes primeiro)
+export const sortedArticles = [...articles].sort((a, b) => 
+  new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
+);

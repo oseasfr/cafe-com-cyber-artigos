@@ -1,56 +1,36 @@
-// Importa todos os arquivos .md da pasta de artigos
 const modules = import.meta.glob("../content/articles/*.md", { eager: true });
 
 export interface Article {
   id: string;
   title: string;
   description: string;
-  content: string;
+  content: any; // O componente do artigo
   author: string;
-  authorFirstName?: string;
-  authorLastName?: string;
-  authorAvatar?: string;
-  authorBio?: string;
-  authorSocialLink?: string;
   publishedAt: string;
   readTime: string;
   category: string;
   imageUrl?: string;
   tags?: string[];
-  featured?: boolean;
 }
 
 export const articles: Article[] = Object.entries(modules).map(([path, module]: any) => {
-  // Extrai os metadados (frontmatter) e o conteúdo HTML gerado pelo plugin
-  const { attributes, html } = module;
-  
-  // "Blindagem": Se o ID não existir no arquivo, usa o nome do arquivo .md
-  const fileNameId = path.split("/").pop()?.replace(".md", "") || "artigo-sem-id";
+  const { frontmatter } = module;
+  const fileNameId = path.split("/").pop()?.replace(".md", "") || "artigo";
 
   return {
-    // Valores padrão (fallback) caso você esqueça de preencher algo no .md
-    id: attributes?.id || fileNameId,
-    title: attributes?.title || "Artigo sem título",
-    description: attributes?.description || "Sem descrição disponível.",
-    author: attributes?.author || "Equipe Café com Cyber",
-    publishedAt: attributes?.publishedAt || new Date().toISOString(),
-    readTime: attributes?.readTime || "5 min",
-    category: attributes?.category || "Geral",
-    content: html || "", // Conteúdo transformado em HTML pelo plugin
-    
-    // Repassa os outros campos opcionais
-    imageUrl: attributes?.imageUrl,
-    authorFirstName: attributes?.authorFirstName,
-    authorLastName: attributes?.authorLastName,
-    authorAvatar: attributes?.authorAvatar,
-    authorBio: attributes?.authorBio,
-    authorSocialLink: attributes?.authorSocialLink,
-    tags: attributes?.tags || [],
-    featured: attributes?.featured || false,
+    id: frontmatter?.id || fileNameId,
+    title: frontmatter?.title || "Artigo sem título",
+    description: frontmatter?.description || "Sem descrição.",
+    author: frontmatter?.author || "Equipe",
+    publishedAt: frontmatter?.publishedAt || new Date().toISOString(),
+    readTime: frontmatter?.readTime || "5 min",
+    category: frontmatter?.category || "Cibersegurança",
+    imageUrl: frontmatter?.imageUrl,
+    tags: frontmatter?.tags || [],
+    content: module.default, // O conteúdo Markdown já processado
   };
 });
 
-// Ordena automaticamente por data (os mais recentes primeiro)
 export const sortedArticles = [...articles].sort((a, b) => 
   new Date(b.publishedAt).getTime() - new Date(a.publishedAt).getTime()
 );

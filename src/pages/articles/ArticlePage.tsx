@@ -1,5 +1,4 @@
 import { useParams, Link } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
 import { articles } from "@/data/articles";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
@@ -45,7 +44,6 @@ function useArticleTheme() {
 }
 
 export default function ArticlePage() {
-  // AJUSTE AQUI: Mudado de articleId para id para bater com a rota do App.tsx
   const { id } = useParams();
   const article = articles.find((a) => a.id === id);
 
@@ -63,6 +61,9 @@ export default function ArticlePage() {
   const articleUrl = `/articles/${article.id}`;
   const articleTheme = useArticleTheme();
   const isLight = articleTheme.theme === "light";
+
+  // O componente de conteúdo do Markdown
+  const Content = article.content;
 
   return (
     <div className="min-h-screen bg-background">
@@ -125,32 +126,9 @@ export default function ArticlePage() {
           </div>
         )}
 
-        <article
-          className={`prose prose-lg max-w-none ${
-            isLight ? "prose-slate" : "prose-invert prose-slate"
-          }`}
-        >
-          <ReactMarkdown
-            components={{
-              a: ({ href, children }) => (
-                <a
-                  href={href}
-                  target={href?.startsWith("http") ? "_blank" : undefined}
-                  rel={href?.startsWith("http") ? "noopener noreferrer" : undefined}
-                  className="text-primary hover:underline"
-                >
-                  {children}
-                </a>
-              ),
-              pre: ({ children }) => (
-                <pre className={`p-4 rounded-lg overflow-x-auto my-4 ${isLight ? "bg-gray-100 text-gray-800" : "bg-muted text-foreground"}`}>
-                  {children}
-                </pre>
-              ),
-            }}
-          >
-            {article.content}
-          </ReactMarkdown>
+        <article className={`prose prose-lg max-w-none ${isLight ? "prose-slate" : "prose-invert prose-slate"}`}>
+          {/* Renderiza o componente Markdown diretamente */}
+          <Content />
         </article>
 
         <AuthorBioFooter

@@ -12,12 +12,6 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-4">
           <Link
-            to="/"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Início
-          </Link>
-          <Link
             to="/articles"
             className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
           >
@@ -29,3 +23,4 @@ export default function Header() {
     </header>
   );
 }
+

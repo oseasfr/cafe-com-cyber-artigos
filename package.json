@@ -11,6 +11,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "vite-plugin-markdown": "^1.6.0"
     "@radix-ui/react-avatar": "^1.1.0",
     "@radix-ui/react-slot": "^1.1.0",
     "@radix-ui/react-tooltip": "^1.1.0",
@@ -46,3 +47,4 @@
     "vite": "^5.4.0"
   }
 }
+

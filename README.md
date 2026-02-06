@@ -4,7 +4,7 @@ Estrutura standalone extraída do projeto [Café com Cyber](https://github.com/o
 
 ---
 
-## Passo a Passo de Uso
+## Passo a Passo de Uso 
 
 ### 1. Instalar dependências
 
@@ -153,3 +153,4 @@ Edite `src/lib/articleIcons.tsx` para adicionar novos ícones.
 ## Licença
 
 Estrutura extraída do Café com Cyber. Use conforme a licença do projeto original.
+

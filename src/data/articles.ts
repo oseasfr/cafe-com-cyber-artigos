@@ -10,8 +10,9 @@ export const articles = [
     imageUrl: "/images/phishing-2026.jpg",
 
     // Caminho direto para o arquivo markdown
-    content: "/src/content/articles/phishing-em-2026.md"
+  content: "/articles/phishing-em-2026.md"
   },
 
   // Adicione outros artigos aqui
 ];
+

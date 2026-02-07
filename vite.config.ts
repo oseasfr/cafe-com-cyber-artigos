@@ -8,6 +8,10 @@ export default defineConfig({
     react(),
     MarkdownPreview()
   ],
+
+  // 🔥 ESSENCIAL: permite que o Vite inclua arquivos .md no bundle
+  assetsInclude: ["**/*.md"],
+
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),

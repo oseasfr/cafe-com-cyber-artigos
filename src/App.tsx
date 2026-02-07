@@ -10,8 +10,7 @@ const queryClient = new QueryClient();
 
 const App = () => (
   <QueryClientProvider client={queryClient}>
-    <BrowserRouter basename="/cafe-com-cyber-artigos">
-      <Routes>
+        <BrowserRouter basename="/">      <Routes>
         {/* Rota Principal */}
         <Route path="/" element={<Index />} />
         
@@ -29,3 +28,4 @@ const App = () => (
 );
 
 export default App;
+

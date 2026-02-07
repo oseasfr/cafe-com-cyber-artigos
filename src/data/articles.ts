@@ -1,6 +1,7 @@
 import { loadArticles } from "@/lib/articleLoader";
 
-const files = import.meta.glob("/src/content/articles/*.md", {
+// Caminho correto relativo ao arquivo atual (src/data/articles.ts)
+const files = import.meta.glob("../content/articles/*.md", {
   eager: true,
   as: "raw"
 });

@@ -1,18 +1,10 @@
-export const articles = [
-  {
-    id: "phishing-em-2026",
-    title: "Phishing em 2026: Como os ataques evoluíram",
-    author: "Seu Nome",
-    authorAvatar: "/avatars/autor1.png",
-    authorBio: "Especialista em cibersegurança.",
-    publishedAt: "2026-01-10",
-    readTime: "6 min",
-    imageUrl: "/images/phishing-2026.jpg",
+import { loadArticles } from "@/lib/articleLoader";
 
-    // Caminho direto para o arquivo markdown
-  content: "/articles/phishing-em-2026.md"
-  },
+const files = import.meta.glob("/src/content/articles/*.md", {
+  eager: true,
+  as: "raw"
+});
 
-  // Adicione outros artigos aqui
-];
+const markdownContents = Object.values(files) as string[];
 
+export const articles = loadArticles(markdownContents);

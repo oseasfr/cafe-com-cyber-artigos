@@ -1,7 +1,7 @@
 ---
-id: exemplo-artigo
+id: "exemplo-artigo"
 title: "Exemplo de Artigo"
-description: Este é um artigo de exemplo para demonstrar a estrutura de artigos.
+description: "Este é um artigo de exemplo para demonstrar a estrutura de artigos."
 author: "Seu Nome"
 authorFirstName: "Seu"
 authorLastName: "Nome"
@@ -13,7 +13,7 @@ category: "Web Security"
 icon: "Shield"
 gradient: "from-primary/20 to-accent/20"
 publishedAt: "2025-02-05T10:00:00"
-tags: [exemplo, tutorial, cibersegurança]
+tags: ["exemplo", "tutorial", "cibersegurança"]
 featured: true
 priority: 1
 ---
@@ -47,8 +47,4 @@ Este é um **artigo de exemplo** para demonstrar como a estrutura funciona.
 - `publishedAt` - data ISO
 - `tags` - array de tags
 - `featured` - boolean
-- `priority` - número (maior = mais destaque)
-
-## Próximos passos
-
-Edite este arquivo ou crie novos artigos em `src/content/articles/`. O carregamento é **automático** - não precisa registrar em nenhum outro arquivo.
+- `priority

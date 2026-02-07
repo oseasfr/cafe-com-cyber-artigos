@@ -9,8 +9,15 @@ import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
 import NotFound from "../NotFound";
+import ReactMarkdown from "react-markdown";
 
-function ArticleThemeToggle({ theme, onToggle }: { theme: "light" | "dark"; onToggle: () => void; }) {
+function ArticleThemeToggle({
+  theme,
+  onToggle,
+}: {
+  theme: "light" | "dark";
+  onToggle: () => void;
+}) {
   return (
     <button
       onClick={onToggle}
@@ -26,14 +33,19 @@ export default function ArticlePage() {
   const { id } = useParams();
   const article = articles.find((a) => a.id === id);
 
+  const [markdown, setMarkdown] = useState("");
+
   useEffect(() => {
-    if (article) document.title = `${article.title} | Café com Cyber`;
+    if (!article) return;
+
+    document.title = `${article.title} | Café com Cyber`;
+
+    fetch(article.content)
+      .then((res) => res.text())
+      .then((text) => setMarkdown(text));
   }, [article]);
 
   if (!article) return <NotFound />;
-
-  // Como o conteúdo vem como um componente React do plugin:
-  const ArticleContent = article.content;
 
   const [theme, setTheme] = useState<"light" | "dark">("dark");
   const isLight = theme === "light";
@@ -41,6 +53,7 @@ export default function ArticlePage() {
   return (
     <div className="min-h-screen bg-background">
       <Header />
+
       <main className="container mx-auto max-w-4xl px-4 py-8">
         <div className="mb-6">
           <Button asChild variant="ghost" size="sm">
@@ -60,20 +73,32 @@ export default function ArticlePage() {
         />
 
         <div className="my-6">
-          <ShareButtons 
-            title={article.title} 
-            url={window.location.href} 
-            themeToggle={<ArticleThemeToggle theme={theme} onToggle={() => setTheme(isLight ? "dark" : "light")} />}
+          <ShareButtons
+            title={article.title}
+            url={window.location.href}
+            themeToggle={
+              <ArticleThemeToggle
+                theme={theme}
+                onToggle={() => setTheme(isLight ? "dark" : "light")}
+              />
+            }
           />
         </div>
 
         {article.imageUrl && (
-          <img src={article.imageUrl} alt={article.title} className="w-full rounded-lg mb-8 max-h-96 object-cover" />
+          <img
+            src={article.imageUrl}
+            alt={article.title}
+            className="w-full rounded-lg mb-8 max-h-96 object-cover"
+          />
         )}
 
-        <article className={`prose prose-lg max-w-none ${isLight ? "prose-slate" : "prose-invert prose-slate"}`}>
-          {/* RENDERIZAÇÃO DO COMPONENTE MD */}
-          <ArticleContent />
+        <article
+          className={`prose prose-lg max-w-none ${
+            isLight ? "prose-slate" : "prose-invert prose-slate"
+          }`}
+        >
+          <ReactMarkdown>{markdown}</ReactMarkdown>
         </article>
 
         <AuthorBioFooter
@@ -82,6 +107,7 @@ export default function ArticlePage() {
           authorAvatar={article.authorAvatar}
         />
       </main>
+
       <Footer />
     </div>
   );

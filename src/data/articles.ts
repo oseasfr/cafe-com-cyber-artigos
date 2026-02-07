@@ -1,11 +1,16 @@
-import { loadArticles } from "@/lib/articleLoader";
+import { loadArticles } from "../lib/articleLoader";
 
-// Caminho correto relativo ao arquivo atual (src/data/articles.ts)
-const files = import.meta.glob("../content/articles/*.md", {
-  eager: true,
-  as: "raw"
-});
+// Importa os arquivos .md como texto bruto usando ?raw
+import artigo1 from "../content/articles/quando-foi-a-ultima-vez-que-voce-alterou-sua-senha.md?raw";
+// import artigo2 from "../content/articles/external-secrets-k8s-vault-hashicorp-ldap-postgres.md?raw";
+// import artigo3 from "../content/articles/monitoramento-continuo-o-papel-estrategico-na-seguranca-da-informacao-corporativa.md?raw";
 
-const markdownContents = Object.values(files) as string[];
+// Carrega todos os artigos usando o loader
+export const articles = loadArticles([
+  artigo1,
+  // artigo2,
+  // artigo3,
+]);
 
-export const articles = loadArticles(markdownContents);
+// Exporta tipos para uso em outros arquivos
+export type { Article, ArticleMetadata } from "../lib/articleLoader";

@@ -1,8 +1,7 @@
 import { loadArticles } from "@/lib/articleLoader";
 
-// Procura os arquivos .md em qualquer lugar do projeto
-// até encontrar a pasta content/articles
-const files = import.meta.glob("/**/content/articles/*.md", {
+// Caminho correto relativo ao arquivo atual (src/data/articles.ts)
+const files = import.meta.glob("../content/articles/*.md", {
   eager: true,
   as: "raw"
 });

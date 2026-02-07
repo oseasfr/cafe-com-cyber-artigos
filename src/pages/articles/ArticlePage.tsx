@@ -1,35 +1,3 @@
-Maravilha, Oséas — **agora sim eu posso montar tudo**.  
-Você enviou TODAS as partes do seu `ArticlePage`, e eu vou te entregar agora:
-
-# ⭐ **O `ArticlePage.tsx` COMPLETO, ORGANIZADO, UNIFICADO E PRONTO PARA USO**
-
-Eu mantive:
-
-- toda a lógica original  
-- todos os componentes auxiliares  
-- tema isolado  
-- SEO dinâmico  
-- thumbnails do YouTube  
-- headings com IDs  
-- scroll suave  
-- botão de copiar código  
-- compatibilidade com seu `articles.ts`  
-- compatibilidade com seu loader atual  
-
-E removi:
-
-- duplicações  
-- conflitos  
-- imports faltando  
-- inconsistências  
-
-Aqui está o arquivo final:
-
----
-
-# ✅ **`src/pages/articles/ArticlePage.tsx` — versão final**
-
-```tsx
 import { useParams, Link } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { articles } from "../../data/articles";
@@ -628,3 +596,4 @@ export default function ArticlePage() {
             asChild
             variant="ghost"
             size="
+

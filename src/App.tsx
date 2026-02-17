@@ -1,31 +1,24 @@
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import { ThemeProvider } from "next-themes";
+import { Toaster } from "@/components/ui/sonner";
 import Index from "./pages/Index";
+import NotFound from "./pages/NotFound";
 import ArticlePage from "./pages/articles/ArticlePage";
 import ArticlesFiles from "./pages/articles/ArticlesFiles";
-import NotFound from "./pages/NotFound";
 
-// Configuração simplificada do QueryClient
-const queryClient = new QueryClient();
-
-const App = () => (
-  <QueryClientProvider client={queryClient}>
-        <BrowserRouter basename="/">      <Routes>
-        {/* Rota Principal */}
-        <Route path="/" element={<Index />} />
-        
-        {/* Listagem de Artigos */}
-        <Route path="/articles" element={<ArticlesFiles />} />
-        
-        {/* Página do Artigo */}
-        <Route path="/articles/:id" element={<ArticlePage />} />
-        
-        {/* Página 404 */}
-        <Route path="*" element={<NotFound />} />
-      </Routes>
-    </BrowserRouter>
-  </QueryClientProvider>
-);
-
-export default App;
-
+export default function App() {
+  return (
+    <ThemeProvider defaultTheme="dark" storageKey="theme" attribute="class">
+      <BrowserRouter basename="/cafe-com-cyber-artigos">
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/index.html" element={<Navigate to="/" replace />} />
+          <Route path="/articles" element={<ArticlesFiles />} />
+          <Route path="/articles/:articleId" element={<ArticlePage />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </BrowserRouter>
+      <Toaster />
+    </ThemeProvider>
+  );
+}

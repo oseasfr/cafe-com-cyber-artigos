@@ -1,18 +1,43 @@
-import { defineConfig } from "vite";
+import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
+import { componentTagger } from "lovable-tagger";
 
-export default defineConfig({
-  root: "src", // 👈 ESSENCIAL
-  base: "/",   // 👈 ESSENCIAL
-  build: {
-    outDir: "../dist", // 👈 dist volta para a raiz
-    emptyOutDir: true,
-  },
-  plugins: [react()],
-  resolve: {
-    alias: {
-      "@": path.resolve(__dirname, "./src"),
+export default defineConfig(({ mode } ) => {
+
+  const env = loadEnv(mode, process.cwd(), '');
+
+  return {
+    build: {
+     
+      rollupOptions: {
+        output: {
+          manualChunks(id: string) {
+          
+            if (id.includes('node_modules')) {
+              return 'vendor';
+            }
+          }
+        }
+      }
     },
-  },
+
+  
+    server: {
+      host: "::",
+      port: 8080,
+    },
+    plugins: [
+      react(),
+    
+      mode === 'development' && componentTagger(),
+    ].filter(Boolean),
+    resolve: {
+      alias: {
+   
+        "@": path.resolve(__dirname, "./src"),
+      },
+      extensions: ['.mjs', '.js', '.mts', '.ts', '.jsx', '.tsx', '.json'],
+    },
+  };
 });

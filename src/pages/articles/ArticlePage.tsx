@@ -65,16 +65,6 @@ export default function ArticlePage() {
       ? window.location.origin + articleUrl
       : articleUrl;
 
-  const getImageUrl = () => {
-    if (!article.imageUrl) return "";
-    if (article.imageUrl.startsWith("http")) return article.imageUrl;
-    const path = article.imageUrl.startsWith("/")
-      ? article.imageUrl
-      : "/" + article.imageUrl;
-    return typeof window !== "undefined" ? window.location.origin + path : path;
-  };
-
-  const imageUrl = getImageUrl();
   const shareImageUrl =
     typeof window !== "undefined"
       ? window.location.origin + "/favicon.ico"
@@ -172,20 +162,10 @@ export default function ArticlePage() {
           />
         </div>
 
-        {article.imageUrl && (
-          <div className="mb-8 rounded-lg overflow-hidden">
-            <img
-              src={imageUrl}
-              alt={article.title}
-              className="w-full h-auto max-h-64 object-contain bg-muted/20"
-            />
-          </div>
-        )}
-
         <article
           className={`prose prose-lg max-w-none mt-8 ${
             isLight
-              ? "prose-slate prose-invert"
+              ? "prose-slate bg-white text-gray-900 rounded-lg p-6 md:p-8"
               : "prose-invert prose-slate"
           }`}
           data-article-content

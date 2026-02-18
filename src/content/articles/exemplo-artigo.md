@@ -21,6 +21,8 @@ priority: 1
 
 Este é o **guia oficial** para quem vai publicar artigos neste projeto. Siga os passos abaixo para garantir que seus artigos apareçam corretamente na home e na listagem.
 
+**Contexto:** este site é publicado no **GitHub Pages** via **GitHub Actions**. Ou seja, ao dar push no repositório (na branch configurada), o workflow faz o build e publica automaticamente; não é preciso fazer deploy manual da pasta `dist/`. Os novos artigos passam a aparecer no ar assim que o workflow terminar.
+
 ---
 
 ## 1. Onde ficam os artigos
@@ -150,15 +152,14 @@ npm run dev
 
 Acesse `http://localhost:8080` (ou a porta indicada), vá em **Ver artigos** e confira se o novo artigo aparece e se a página do artigo abre corretamente em `/articles/meu-novo-post`.
 
-### Passo 5 — Build e deploy
+### Passo 5 — Publicar no ar (GitHub Pages via GitHub Actions)
 
-Quando estiver tudo certo:
+O projeto **publica no GitHub Pages via GitHub Actions**. Você não precisa fazer upload manual: basta dar **push** no repositório na branch configurada (ex.: `Principal`).
 
-```bash
-npm run build
-```
-
-A pasta `dist/` estará pronta para deploy. No **GitHub Pages** (este projeto), basta dar push na branch configurada (ex.: `Principal`); o workflow faz o build e publica em:
+1. Faça commit do seu novo artigo (e de qualquer alteração).
+2. Dê **push** para o GitHub (ex.: `git push origin Principal`).
+3. O **GitHub Actions** executa o workflow (`.github/workflows/deploy.yml`): instala dependências, roda `npm run build` e envia o resultado para o **GitHub Pages**.
+4. Quando o workflow terminar (verifique em **Actions** no repositório), o site estará atualizado em:
 
 **https://oseasfr.github.io/cafe-com-cyber-artigos/**
 
@@ -188,8 +189,8 @@ Se não informar `authorAvatar`, o sistema pode usar uma imagem padrão ou as in
 2. Preencha o frontmatter (obrigatórios + opcionais que quiser).
 3. Escreva o conteúdo em Markdown.
 4. Rode `npm run dev`, confira na listagem e na página do artigo.
-5. Faça `npm run build` e deploy da pasta `dist/`.
+5. Dê **push** no repositório: o **GitHub Actions** faz o build e publica no **GitHub Pages** automaticamente.
 
-Nenhum outro arquivo precisa ser editado para **divulgar um novo artigo** — apenas o novo `.md` em `src/content/articles/`.
+Nenhum outro arquivo precisa ser editado para **divulgar um novo artigo** — apenas o novo `.md` em `src/content/articles/`. A publicação no ar é feita pelo workflow ao dar push.
 
-Para mais detalhes do projeto (estrutura, rotas, ícones, deploy), consulte o **README.md** na raiz do repositório.
+Para mais detalhes do projeto (estrutura, rotas, ícones, deploy via GitHub Actions), consulte o **README.md** na raiz do repositório.

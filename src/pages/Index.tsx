@@ -1,27 +1,27 @@
 import Header from "@/components/Header";
-import ArticlesSection from "@/components/ArticlesSection";
 import Footer from "@/components/Footer";
-import ScrollToTopButton from "@/components/ScrollToTopButton";
+import HeroSection from "@/components/HeroSection";
+import ArticlesSection from "@/components/ArticlesSection";
+import CommunitySection from "@/components/CommunitySection";
+import AboutSection from "@/components/AboutSection";
+import PasswordGeneratorSection from "@/components/PasswordGeneratorSection";
+import InstagramSection from "@/components/InstagramSection";
 
-export default function Index() {
+const Index = () => {
   return (
-    <div className="min-h-screen flex flex-col">
+    <div className="min-h-screen bg-background">
       <Header />
-      <main className="flex-1">
-        <section className="py-12 md:py-16">
-          <div className="container text-center">
-            <h1 className="text-4xl md:text-5xl font-bold mb-4">
-              Artigos
-            </h1>
-            <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-              Conteúdo de qualidade sobre cibersegurança
-            </p>
-          </div>
-        </section>
+      <main role="main">
+        <HeroSection />
         <ArticlesSection />
+        <CommunitySection />
+        <AboutSection />
+        <PasswordGeneratorSection />
+        <InstagramSection />
       </main>
       <Footer />
-      <ScrollToTopButton />
     </div>
   );
-}
+};
+
+export default Index;

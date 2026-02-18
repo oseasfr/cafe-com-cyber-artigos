@@ -9,7 +9,20 @@ import { AuthorBioFooter } from "@/components/AuthorBioFooter";
 import { Button } from "@/components/ui/button";
 import { ArrowLeft } from "lucide-react";
 import { useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import NotFound from "../NotFound";
+
+function stripHeadingQuotes(children: ReactNode): ReactNode {
+  if (typeof children === "string") {
+    return children.replace(/^['"]+|['"]+$/g, "").trim();
+  }
+  if (Array.isArray(children)) {
+    return children.map((child) =>
+      typeof child === "string" ? child.replace(/^['"]+|['"]+$/g, "").trim() : child
+    );
+  }
+  return children;
+}
 
 function ArticleThemeToggle({
   theme,
@@ -172,6 +185,12 @@ export default function ArticlePage() {
         >
           <ReactMarkdown
             components={{
+              h1: ({ children }) => <h1>{stripHeadingQuotes(children)}</h1>,
+              h2: ({ children }) => <h2>{stripHeadingQuotes(children)}</h2>,
+              h3: ({ children }) => <h3>{stripHeadingQuotes(children)}</h3>,
+              h4: ({ children }) => <h4>{stripHeadingQuotes(children)}</h4>,
+              h5: ({ children }) => <h5>{stripHeadingQuotes(children)}</h5>,
+              h6: ({ children }) => <h6>{stripHeadingQuotes(children)}</h6>,
               a: ({ href, children }) => (
                 <a
                   href={href}

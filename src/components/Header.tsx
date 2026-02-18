@@ -9,14 +9,6 @@ export default function Header() {
           <FileText className="h-6 w-6 text-primary" />
           <span>Artigos</span>
         </Link>
-        <nav className="flex items-center gap-4">
-          <Link
-            to="/"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Início
-          </Link>
-        </nav>
       </div>
     </header>
   );

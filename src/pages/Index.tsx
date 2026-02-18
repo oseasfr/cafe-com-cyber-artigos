@@ -1,27 +1,15 @@
 import Header from "@/components/Header";
-import Footer from "@/components/Footer";
 import HeroSection from "@/components/HeroSection";
-import ArticlesSection from "@/components/ArticlesSection";
-import CommunitySection from "@/components/CommunitySection";
-import AboutSection from "@/components/AboutSection";
-import PasswordGeneratorSection from "@/components/PasswordGeneratorSection";
-import InstagramSection from "@/components/InstagramSection";
+import Footer from "@/components/Footer";
 
-const Index = () => {
+export default function Index() {
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen flex flex-col">
       <Header />
-      <main role="main">
+      <main className="flex-1">
         <HeroSection />
-        <ArticlesSection />
-        <CommunitySection />
-        <AboutSection />
-        <PasswordGeneratorSection />
-        <InstagramSection />
       </main>
       <Footer />
     </div>
   );
-};
-
-export default Index;
+}

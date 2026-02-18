@@ -16,12 +16,6 @@ export default function Header() {
           >
             Início
           </Link>
-          <Link
-            to="/articles"
-            className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors"
-          >
-            Todos os Artigos
-          </Link>
         </nav>
       </div>
     </header>

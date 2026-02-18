@@ -1,50 +1,195 @@
 ---
-id: "exemplo-artigo"
-title: "Exemplo de Artigo"
-description: "Este é um artigo de exemplo para demonstrar a estrutura de artigos."
-author: "Seu Nome"
-authorFirstName: "Seu"
-authorLastName: "Nome"
-authorBio: "Especialista em cibersegurança e tecnologia."
-authorSocialLink: "https://linkedin.com/in/seu-perfil"
+id: exemplo-artigo
+title: "Como publicar artigos neste projeto — Guia do desenvolvedor"
+description: Passo a passo oficial para criar, publicar e divulgar novos artigos na plataforma Café com Cyber Artigos.
+author: "Doc Autor"
+authorFirstName: "Doc"
+authorLastName: "Autor"
+authorAvatar: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=128&h=128&fit=crop&crop=face"
+authorBio: "Mantenedor da documentação do projeto. Focado em cibersegurança e boas práticas para desenvolvedores."
+authorSocialLink: "https://linkedin.com/in/exemplo"
 authorSocialType: "linkedin"
-readTime: "5 minutos de leitura"
+readTime: "8 minutos de leitura"
 category: "Web Security"
 icon: "Shield"
 gradient: "from-primary/20 to-accent/20"
-publishedAt: "2025-02-05T10:00:00"
-tags: ["exemplo", "tutorial", "cibersegurança"]
+publishedAt: "2025-02-17T10:00:00"
+tags: [documentação, tutorial, artigos, deploy, frontmatter]
 featured: true
 priority: 1
 ---
 
-Este é um **artigo de exemplo** para demonstrar como a estrutura funciona.
+Este é o **guia oficial** para quem vai publicar artigos neste projeto. Siga os passos abaixo para garantir que seus artigos apareçam corretamente na home e na listagem.
 
-## O que você precisa saber
+---
 
-1. Crie arquivos `.md` em `src/content/articles/`
-2. Use o frontmatter YAML no início (entre `---`)
-3. O conteúdo em Markdown é renderizado automaticamente
+## 1. Onde ficam os artigos
 
-### Campos obrigatórios do frontmatter
+Todos os artigos são arquivos **Markdown (`.md`)** na pasta:
 
-- `id` - identificador único (usado na URL)
-- `title` - título do artigo
-- `description` - resumo
-- `author` - nome completo
-- `readTime` - tempo estimado de leitura
-- `category` - categoria (ex: Web Security, Malware)
-- `icon` - nome do ícone (Shield, Key, Bug, etc.)
-- `gradient` - classes Tailwind para o gradiente (ex: from-primary/20 to-accent/20)
+```
+src/content/articles/
+```
 
-### Campos opcionais
+Cada arquivo `.md` vira um artigo. Não é necessário registrar o artigo em nenhum outro arquivo: o carregamento é **automático**.
 
-- `authorFirstName`, `authorLastName`
-- `authorAvatar` - caminho da imagem (ex: /images/authors/avatar.jpg)
-- `authorBio` - biografia
-- `authorSocialLink`, `authorSocialType` (linkedin ou github)
-- `imageUrl` - imagem de capa
-- `publishedAt` - data ISO
-- `tags` - array de tags
-- `featured` - boolean
-- `priority
+---
+
+## 2. Estrutura de um artigo
+
+Todo artigo deve ter:
+
+1. **Frontmatter** — bloco YAML no topo, entre duas linhas `---`
+2. **Corpo** — conteúdo em Markdown (títulos, parágrafos, listas, código, etc.)
+
+Exemplo mínimo:
+
+```markdown
+---
+id: meu-artigo
+title: "Meu título"
+description: "Breve descrição."
+author: "Seu Nome"
+readTime: "5 min de leitura"
+category: "Web Security"
+icon: "Shield"
+gradient: "from-primary/20 to-accent/20"
+---
+
+Aqui vai o conteúdo em **Markdown**.
+```
+
+---
+
+## 3. Campos obrigatórios do frontmatter
+
+| Campo        | Exemplo                    | Uso |
+|-------------|----------------------------|-----|
+| `id`        | `meu-artigo`               | Identificador único; vira a URL: `/articles/meu-artigo` |
+| `title`     | `"Título do artigo"`       | Título exibido na listagem e na página do artigo |
+| `description` | `"Resumo em uma linha."`  | Descrição/SEO e cards |
+| `author`    | `"Nome Completo"`          | Nome do autor |
+| `readTime`  | `"5 minutos de leitura"`   | Tempo de leitura estimado |
+| `category`  | `Web Security`              | Categoria (define ícone na listagem) |
+| `icon`      | `Shield`                    | Nome do ícone Lucide (Shield, Lock, Key, Bug, etc.) |
+| `gradient`  | `from-primary/20 to-accent/20` | Classes Tailwind do gradiente do card |
+
+Sem esses campos, o artigo **não** será carregado (erro no build).
+
+---
+
+## 4. Campos opcionais (recomendados)
+
+| Campo              | Exemplo                          | Uso |
+|--------------------|-----------------------------------|-----|
+| `authorFirstName` | `"João"`                          | Primeiro nome (exibido no header do artigo) |
+| `authorLastName`  | `"Silva"`                         | Sobrenome |
+| `authorAvatar`    | `https://...` ou `/images/...`   | URL da foto do autor (fictícia ou real) |
+| `authorBio`       | `"Texto da bio."`                 | Biografia no rodapé do artigo |
+| `authorSocialLink`| `https://linkedin.com/in/...`     | Link do perfil (LinkedIn ou GitHub) |
+| `authorSocialType`| `linkedin` ou `github`            | Tipo do link social |
+| `publishedAt`     | `2025-02-17T10:00:00`             | Data de publicação (ISO) — define ordem |
+| `tags`            | `[tag1, tag2]`                    | Tags exibidas no artigo |
+| `featured`        | `true`                            | Destacar na home (se houver seção de destaques) |
+| `priority`        | `1`                               | Número maior = mais destaque na ordenação |
+
+---
+
+## 5. Passo a passo para publicar um novo artigo
+
+### Passo 1 — Criar o arquivo
+
+Crie um novo `.md` em `src/content/articles/`, por exemplo:
+
+- `src/content/articles/meu-novo-post.md`
+
+O `id` do frontmatter deve ser **único** e igual ao nome do arquivo (sem `.md`), para a URL ficar coerente: `/articles/meu-novo-post`.
+
+### Passo 2 — Preencher o frontmatter
+
+Copie o bloco abaixo e ajuste os valores. Não remova nenhum campo obrigatório.
+
+```yaml
+---
+id: meu-novo-post
+title: "Título que aparece na listagem e na página"
+description: "Uma linha resumindo o artigo."
+author: "Seu Nome"
+authorFirstName: "Seu"
+authorLastName: "Nome"
+authorAvatar: "https://exemplo.com/sua-foto.jpg"
+authorBio: "Sua bio curta."
+authorSocialLink: "https://linkedin.com/in/seu-perfil"
+authorSocialType: "linkedin"
+readTime: "6 minutos de leitura"
+category: "Web Security"
+icon: "Shield"
+gradient: "from-primary/20 to-accent/20"
+publishedAt: "2025-02-17T14:00:00"
+tags: [tag1, tag2, tag3]
+featured: true
+priority: 0
+---
+```
+
+### Passo 3 — Escrever o conteúdo
+
+Abra uma linha em branco após o último `---` e escreva o artigo em Markdown:
+
+- Use `#`, `##`, `###` para títulos (evite aspas nos títulos; o sistema remove automaticamente).
+- Use **negrito**, *itálico*, listas, blocos de código e links normalmente.
+
+### Passo 4 — Testar em desenvolvimento
+
+No terminal, na raiz do projeto:
+
+```bash
+npm install
+npm run dev
+```
+
+Acesse `http://localhost:8080` (ou a porta indicada), vá em **Ver artigos** e confira se o novo artigo aparece e se a página do artigo abre corretamente em `/articles/meu-novo-post`.
+
+### Passo 5 — Build e deploy
+
+Quando estiver tudo certo:
+
+```bash
+npm run build
+```
+
+A pasta `dist/` estará pronta para deploy. No **GitHub Pages** (este projeto), basta dar push na branch configurada (ex.: `Principal`); o workflow faz o build e publica em:
+
+**https://oseasfr.github.io/cafe-com-cyber-artigos/**
+
+Os artigos ficam em:
+
+- **Home:** https://oseasfr.github.io/cafe-com-cyber-artigos/
+- **Listagem:** https://oseasfr.github.io/cafe-com-cyber-artigos/articles
+- **Artigo:** https://oseasfr.github.io/cafe-com-cyber-artigos/articles/meu-novo-post
+
+---
+
+## 6. Imagem do autor (avatar)
+
+Para exibir uma foto ao lado do nome do autor:
+
+- Use **`authorAvatar`** no frontmatter.
+- Pode ser URL absoluta: `https://...` (ex.: Unsplash, LinkedIn, seu site).
+- Ou caminho local: coloque a imagem em `public/images/authors/` e use por exemplo `/images/authors/meu-avatar.jpg`.
+
+Se não informar `authorAvatar`, o sistema pode usar uma imagem padrão ou as iniciais do nome.
+
+---
+
+## 7. Resumo rápido
+
+1. Crie um `.md` em `src/content/articles/`.
+2. Preencha o frontmatter (obrigatórios + opcionais que quiser).
+3. Escreva o conteúdo em Markdown.
+4. Rode `npm run dev`, confira na listagem e na página do artigo.
+5. Faça `npm run build` e deploy da pasta `dist/`.
+
+Nenhum outro arquivo precisa ser editado para **divulgar um novo artigo** — apenas o novo `.md` em `src/content/articles/`.
+
+Para mais detalhes do projeto (estrutura, rotas, ícones, deploy), consulte o **README.md** na raiz do repositório.

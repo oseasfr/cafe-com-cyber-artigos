@@ -13,15 +13,18 @@ import type { ReactNode } from "react";
 import NotFound from "../NotFound";
 
 function stripHeadingQuotes(children: ReactNode): ReactNode {
+  const strip = (s: string) => s.replace(/^["'\u201C\u201D\u2018\u2019]+|["'\u201C\u201D\u2018\u2019]+$/g, "").trim();
   if (typeof children === "string") {
-    return children.replace(/^['"]+|['"]+$/g, "").trim();
+    return strip(children);
   }
   if (Array.isArray(children)) {
-    return children.map((child) =>
-      typeof child === "string" ? child.replace(/^['"]+|['"]+$/g, "").trim() : child
-    );
+    return children.map((child) => (typeof child === "string" ? strip(child) : child));
   }
   return children;
+}
+
+function stripHeadingQuotesFromContent(content: string): string {
+  return content.replace(/^(#{1,6})\s*["'\u201C\u201D\u2018\u2019]([^"'\u201C\u201D\u2018\u2019]*)["'\u201C\u201D\u2018\u2019]\s*$/gm, "$1 $2");
 }
 
 function ArticleThemeToggle({
@@ -229,7 +232,7 @@ export default function ArticlePage() {
               },
             }}
           >
-            {article.content}
+            {stripHeadingQuotesFromContent(article.content)}
           </ReactMarkdown>
         </article>
 

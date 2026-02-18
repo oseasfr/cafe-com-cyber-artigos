@@ -15,7 +15,7 @@ category: "Engenharia Social"
 icon: "Shield"
 gradient: "from-primary/20 to-accent/20"
 imageUrl: "/images/articles/phishing-header.jpg"
-tags: ["segurança", "phishing", "ia", "privacidade"]
+tags: [segurança, phishing, ia, privacidade]
 featured: true
 priority: 10
 ---
